@@ -30,12 +30,18 @@
     <ClInclude Include="babiakAmbulancia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Authentification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="babiakAmbulancia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Authentification.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "babiakAmbulancia.h"
+#include "Authentification.h"
 
 #define MAX_LOADSTRING 100
 
@@ -22,11 +23,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+
+	/* The first thing we want to do is to show a dialog box about authentification, if it fails we stop the application */
+
+	
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
-
+	
+	AuthentificateDialog(hInst);
+	if (!is_authentificated()) {
+		return FALSE;
+	}
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_BABIAKAMBULANCIA, szWindowClass, MAX_LOADSTRING);
