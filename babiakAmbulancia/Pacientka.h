@@ -9,6 +9,7 @@ class Pacientka {
 	std::wstring zmluvnaPoistovna;
 	std::wstring zmluvnyLekar;
 	std::wstring poznamka;
+	//creationTime funguje tiez ako unikatne ID pre pacientky
 	time_t creationTime;
 public:
 	Pacientka();

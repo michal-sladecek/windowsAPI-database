@@ -3,6 +3,9 @@
 #include "Pacientka.h"
 
 
+std::vector<Pacientka> & Databaza::as_list() {
+	return pacientky;
+}
 void Databaza::pridaj(Pacientka p)
 {
 	pacientky.push_back(p);

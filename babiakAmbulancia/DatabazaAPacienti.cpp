@@ -9,6 +9,7 @@
 #include <string>
 static Databaza * curDatabaza;
 
+//Testuje èi sa pacient loadol spravne
 void testLoad(std::wstring data) {
 	Pacientka p;
 	p.load(data);
@@ -61,4 +62,3 @@ void NovyPacientDialog(Databaza * p)
 	curDatabaza = p;
 	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_NOVAPACIENTKA), NULL, NovyPaciendDlgProc);
 }
-
