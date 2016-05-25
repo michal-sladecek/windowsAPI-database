@@ -1,4 +1,5 @@
 #pragma once
 #include "stdafx.h"
+#include "Databaza.h"
 
-BOOL BackupDialog(HINSTANCE hInst);
+BOOL BackupDialog(Databaza * p);

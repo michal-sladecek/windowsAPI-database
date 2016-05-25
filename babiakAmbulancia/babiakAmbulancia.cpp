@@ -6,8 +6,12 @@
 
 #include "Backup.h"
 #include "Authentification.h"
+#include "Pacientka.h"
+#include "Databaza.h"
+#include "DatabazaAPacienti.h"
 
 #define MAX_LOADSTRING 100
+static Databaza hlavnaDatabaza;
 
 // Global Variables:
 HINSTANCE hInst;                                // current instance
@@ -29,7 +33,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	/* The first thing we want to do is to show a dialog box about authentification, if it fails we stop the application */
 
 	
-
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -43,7 +46,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_BABIAKAMBULANCIA, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
-
     // Perform application initialization:
     if (!InitInstance (hInstance, nCmdShow))
     {
@@ -147,7 +149,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				DestroyWindow(hWnd);
 				break;
 			case ID_ZALOHA:
-				BackupDialog(GetModuleHandle(NULL));
+				BackupDialog(&hlavnaDatabaza);
+				break;
+			case ID_NOVYPACIENT:
+				NovyPacientDialog(&hlavnaDatabaza);
 				break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);

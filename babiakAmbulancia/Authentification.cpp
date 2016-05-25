@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "resource.h"
+#include "Hashing.h"
 #include "Authentification.h"
 
-#define testing_password TEXT("TESTING")
+#include <string>
+
+#define testing_password TEXT("9E21E559CA9136164FBE90C4D09870AD4F177F64B0463A018C819243382B6ABB")
 static BOOL authentificated = FALSE;
 
 BOOL is_authentificated() {
@@ -10,7 +13,7 @@ BOOL is_authentificated() {
 }
 BOOL Authentificate(TCHAR * password)
 {
-	if (_tcscmp(password, testing_password) == 0) {
+	if (getHashValue(password)==std::wstring(testing_password)) {
 		authentificated = TRUE;
 		return TRUE;
 	}
