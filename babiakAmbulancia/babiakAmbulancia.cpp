@@ -9,8 +9,11 @@
 #include "Pacientka.h"
 #include "Databaza.h"
 #include "DatabazaAPacienti.h"
-
+#include <commctrl.h>
 #define MAX_LOADSTRING 100
+#define IDC_MAIN_EDIT 101
+#define IDC_MAIN_BUTTON 102
+#define IDM_CODE_SAMPLES 103
 static Databaza hlavnaDatabaza;
 
 // Global Variables:
@@ -37,11 +40,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
-	
+#ifdef NDEBUG
+
 	AuthentificateDialog(hInst);
 	if (!is_authentificated()) {
 		return FALSE;
 	}
+#endif //NDEBUG	
+
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_BABIAKAMBULANCIA, szWindowClass, MAX_LOADSTRING);
@@ -139,6 +145,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+	case WM_CREATE:
+	{
+		INITCOMMONCONTROLSEX icex;
+		InitCommonControlsEx(&icex);
+	}
+	break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
