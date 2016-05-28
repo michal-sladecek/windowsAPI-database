@@ -15,6 +15,7 @@
 
 
 std::wstring getHashValue(TCHAR * stringToHash) {
+	std::wstring p = L"";
 	BCRYPT_ALG_HANDLE       hAlg = NULL;
 	BCRYPT_HASH_HANDLE      hHash = NULL;
 	NTSTATUS                status = STATUS_UNSUCCESSFUL;
@@ -98,7 +99,7 @@ std::wstring getHashValue(TCHAR * stringToHash) {
 	if (!NT_SUCCESS(status = BCryptHashData(
 		hHash,
 		(PBYTE)stringToHash,
-		sizeof(stringToHash),
+		sizeof(TCHAR)*_tcslen(stringToHash),
 		0)))
 	{
 		wprintf(L"**** Error 0x%x returned by BCryptHashData\n", status);
@@ -128,7 +129,7 @@ std::wstring getHashValue(TCHAR * stringToHash) {
 	}
 	_tcscpy_s(hashTextReturnVal, CA2T(hashTextValue.c_str()));
 	
-
+	 p = std::wstring(hashTextReturnVal);
 Cleanup:
 
 	if (hAlg)
@@ -151,5 +152,5 @@ Cleanup:
 		HeapFree(GetProcessHeap(), 0, pbHash);
 	}
 
-	return std::wstring(hashTextReturnVal);
+	return p;
 }

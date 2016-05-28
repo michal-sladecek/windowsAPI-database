@@ -54,6 +54,9 @@
     <ClInclude Include="Vyhladavanie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ListPacientok.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -84,6 +87,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vyhladavanie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListPacientok.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

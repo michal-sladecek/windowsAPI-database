@@ -1,10 +1,10 @@
 import string
 import random
-def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+def id_generator(size=15, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
-num_entries = 10000
+num_entries = 5000
 num_str = 6
-with open('generovanaDatabaza','w+') as f:
+with open('databaza5000','w+') as f:
     f.write('{')
     for i in range(0,num_entries):
         f.write('[')

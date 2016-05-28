@@ -5,7 +5,7 @@
 
 #include <string>
 
-#define testing_password TEXT("9E21E559CA9136164FBE90C4D09870AD4F177F64B0463A018C819243382B6ABB")
+#define testing_password TEXT("5244F0B5889C63853A171BB57C733A5E6CCE2A2DE119F318DDA4F61864697C02")
 static BOOL authentificated = FALSE;
 
 BOOL is_authentificated() {
@@ -13,7 +13,8 @@ BOOL is_authentificated() {
 }
 BOOL Authentificate(TCHAR * password)
 {
-	if (getHashValue(password)==std::wstring(testing_password)) {
+	std::wstring p = getHashValue(password);
+	if (p==std::wstring(testing_password)) {
 		authentificated = TRUE;
 		return TRUE;
 	}
