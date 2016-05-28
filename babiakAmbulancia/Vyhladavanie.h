@@ -4,4 +4,4 @@
 #include <vector>
 #include <string>
 
-std::vector<Pacientka> vyhladavaciDialog(Databaza * p);
+std::vector<Pacientka> vyhladavaciDialog(Databaza * p, BOOL & result);

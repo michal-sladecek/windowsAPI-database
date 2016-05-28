@@ -173,8 +173,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				break;
 			case ID_VYHLADAVANIE:
 			{
-				std::vector<Pacientka> najdene = vyhladavaciDialog(&hlavnaDatabaza);
-				showDatabaza(hWnd, listView, najdene);
+				BOOL ok = false;
+				std::vector<Pacientka> najdene = vyhladavaciDialog(&hlavnaDatabaza,ok);
+				if(ok==TRUE)
+					showDatabaza(hWnd, listView, najdene);
 			}
 				break;
 			case ID_ZALOHA:
@@ -318,7 +320,7 @@ void HandleWM_NOTIFY(LPARAM lParam)
 	case LVN_GETDISPINFO:
 
 		plvdi = (NMLVDISPINFO*)lParam;
-
+		if (plvdi->item.iItem >= toShowInListView.size())break;
 		switch (plvdi->item.iSubItem)
 		{
 		case 0:

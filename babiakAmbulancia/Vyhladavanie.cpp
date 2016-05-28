@@ -34,15 +34,18 @@ INT_PTR CALLBACK vyhladavanieDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 			EndDialog(hDlg, LOWORD(wParam));
 		}
 		else if (LOWORD(wParam) == IDCANCEL) {
+			najdene.clear();
 			EndDialog(hDlg, LOWORD(wParam));
 		}
 		break;
 	}
 	return (INT_PTR)FALSE;
 }
-std::vector<Pacientka> vyhladavaciDialog(Databaza * p)
+std::vector<Pacientka> vyhladavaciDialog(Databaza * p, BOOL & result)
 {
 	curDatabaza = p;
 	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_VYHLADAVANIE), NULL, vyhladavanieDlgProc);
+	if (najdene.size() == 0)result = FALSE;
+	result = TRUE;
 	return najdene;
 }
