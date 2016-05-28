@@ -10,6 +10,6 @@ public:
 	void pridaj(Pacientka p);
 	std::wstring exportSerialize();
 	void load(std::wstring data);
-
+	std::vector<Pacientka> find(const std::vector<std::wstring> & hladane,size_t num) const;
 	UINT32 numberEntries();
 };

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Pacientka.h"
+#include "Helpers.h"
 
 #include <vector>
 #include <iostream>
@@ -30,6 +31,11 @@ Pacientka::Pacientka(std::wstring _meno, std::wstring _rodneCislo, std::wstring 
 time_t Pacientka::getID()
 {
 	return creationTime;
+}
+
+std::wstring Pacientka::getIDstr()
+{
+	return std::to_wstring(creationTime);
 }
 
 std::wstring Pacientka::getPoznamka()
@@ -124,5 +130,19 @@ void Pacientka::setZmluvnaPoistovna(std::wstring _zp)
 void Pacientka::setZmluvnyLekar(std::wstring _zl)
 {
 	zmluvnyLekar = _zl;
+}
+
+// Meno, RC, TC, ZP, ZL, Poznamka
+UINT Pacientka::matching(const std::vector<std::wstring> & hladane) const
+{
+	UINT editDistFilters = 0;
+	if (hladane.size() != 6) throw std::invalid_argument("The string array doesn't have size 6");
+	if (hladane[0] != L"") editDistFilters += editDist(hladane[0], meno);
+	if (hladane[1] != L"") editDistFilters += editDist(hladane[1], rodneCislo);
+	if (hladane[2] != L"") editDistFilters += editDist(hladane[2], telefonneCislo);
+	if (hladane[3] != L"") editDistFilters += editDist(hladane[3], zmluvnaPoistovna);
+	if (hladane[4] != L"") editDistFilters += editDist(hladane[4], zmluvnyLekar);
+	if (hladane[5] != L"") editDistFilters += editDist(hladane[5], poznamka);
+	return editDistFilters;
 }
 

@@ -121,6 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,10 +157,12 @@
     <ClInclude Include="Databaza.h" />
     <ClInclude Include="DatabazaAPacienti.h" />
     <ClInclude Include="Hashing.h" />
+    <ClInclude Include="Helpers.h" />
     <ClInclude Include="Pacientka.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Vyhladavanie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Authentification.cpp" />
@@ -168,6 +171,7 @@
     <ClCompile Include="Databaza.cpp" />
     <ClCompile Include="DatabazaAPacienti.cpp" />
     <ClCompile Include="Hashing.cpp" />
+    <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Pacientka.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -175,6 +179,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Vyhladavanie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="babiakAmbulancia.rc" />

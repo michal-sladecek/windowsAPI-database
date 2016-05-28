@@ -2,6 +2,8 @@
 #include "Databaza.h"
 #include "Pacientka.h"
 
+#include <utility>
+#include <algorithm>
 
 std::vector<Pacientka> & Databaza::as_list() {
 	return pacientky;
@@ -35,6 +37,21 @@ void Databaza::load(std::wstring data)
 		}
 		else if (data[i] == '[') beg = i;
 	}
+}
+
+
+std::vector<Pacientka> Databaza::find(const std::vector<std::wstring> & hladane, size_t num) const
+{
+	std::vector<std::pair<UINT, int> > V(pacientky.size());
+	for (size_t i = 0; i < V.size(); i++) {
+		V[i] = { pacientky[i].matching(hladane),i };
+	}
+	sort(V.begin(), V.end());
+	std::vector<Pacientka> P;
+	for (size_t i = 0; i < num && i < V.size(); i++) {
+		P.push_back(pacientky[V[i].second]);
+	}
+	return P;
 }
 
 UINT32 Databaza::numberEntries()
