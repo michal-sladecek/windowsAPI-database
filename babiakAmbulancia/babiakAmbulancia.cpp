@@ -40,7 +40,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
 
-	/* The first thing we want to do is to show a dialog box about authentification, if it fails we stop the application */
 
 	
     UNREFERENCED_PARAMETER(hPrevInstance);
@@ -48,10 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Place code here.
 
-	AuthentificateDialog(hInst);
-	if (!is_authentificated()) {
-		return FALSE;
-	}
+
 
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -133,7 +129,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
+   AuthentificateDialog(hInst, hWnd);
+   if (!is_authentificated()) {
+	   return FALSE;
+   }
    return TRUE;
+
 }
 
 //
@@ -170,17 +171,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			case ID_VYHLADAVANIE:
 			{
 				BOOL ok = false;
-				std::vector<Pacientka> najdene = vyhladavaciDialog(&hlavnaDatabaza,ok);
+				std::vector<Pacientka> najdene = vyhladavaciDialog(&hlavnaDatabaza,ok, hWnd);
 				if(ok==TRUE)
 					showDatabaza(hWnd, listView, najdene);
 			}
 				break;
 			case ID_ZALOHA:
-				BackupDialog(&hlavnaDatabaza);
+				BackupDialog(&hlavnaDatabaza, hWnd);
 				showDatabaza(hWnd, listView, hlavnaDatabaza.as_list());
 				break;
 			case ID_NOVYPACIENT:
-				NovyPacientDialog(&hlavnaDatabaza);
+				NovyPacientDialog(&hlavnaDatabaza, hWnd);
 				showDatabaza(hWnd, listView, hlavnaDatabaza.as_list());
 				break;
             default:

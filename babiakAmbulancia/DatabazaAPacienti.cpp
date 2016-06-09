@@ -57,8 +57,8 @@ INT_PTR CALLBACK NovyPaciendDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 	return (INT_PTR)FALSE;
 }
 
-void NovyPacientDialog(Databaza * p)
+void NovyPacientDialog(Databaza * p, HWND parent)
 {
 	curDatabaza = p;
-	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_NOVAPACIENTKA), NULL, NovyPaciendDlgProc);
+	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_NOVAPACIENTKA), parent, NovyPaciendDlgProc);
 }

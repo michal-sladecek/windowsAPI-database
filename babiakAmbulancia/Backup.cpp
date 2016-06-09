@@ -43,9 +43,12 @@ INT_PTR CALLBACK BackupDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 	switch (message)
 	{
 	case WM_INITDIALOG:
+	{
 		CheckRadioButton(hDlg, IDC_OUTPUT, IDC_INPUT, IDC_OUTPUT);
+		HANDLE hIcon1 = LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_SMALL),IMAGE_BITMAP,0,0,LR_DEFAULTCOLOR);
+		SendMessage(GetDlgItem(hDlg, IDC_CHOOSEFILE), BM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)hIcon1);
 		return (INT_PTR)TRUE;
-
+	}
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDC_CHOOSEFILE) {
 
@@ -58,7 +61,7 @@ INT_PTR CALLBACK BackupDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 			ofn.hInstance = GetModuleHandle(NULL);
 			ofn.lpstrFile = szFileName;
 
-			ofn.lpstrFilter = TEXT("Text Files (*.txt)\0*.txt\0All Files (*.*)\0*.*\0");
+			ofn.lpstrFilter = TEXT("All Files (*.*)\0*.*\0");
 			ofn.nFilterIndex = 1;
 			ofn.lpstrFileTitle = NULL;
 
@@ -90,9 +93,9 @@ INT_PTR CALLBACK BackupDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 	}
 	return (INT_PTR)FALSE;
 }
-BOOL BackupDialog(Databaza * p)
+BOOL BackupDialog(Databaza * p, HWND parent)
 {
 	curDatabaza = p;
-	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ZALOHA), NULL, BackupDlgProc);
+	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ZALOHA), parent, BackupDlgProc);
 	return TRUE;
 }

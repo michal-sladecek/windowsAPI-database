@@ -66,8 +66,8 @@ INT_PTR CALLBACK AuthDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 	}
 	return (INT_PTR)FALSE;
 }
-BOOL AuthentificateDialog(HINSTANCE hInst)
+BOOL AuthentificateDialog(HINSTANCE hInst, HWND parent)
 {
-	DialogBox(hInst, MAKEINTRESOURCE(IDD_LOGIN), NULL, AuthDlgProc);
+	DialogBox(hInst, MAKEINTRESOURCE(IDD_LOGIN), parent, AuthDlgProc);
 	return TRUE;
 }

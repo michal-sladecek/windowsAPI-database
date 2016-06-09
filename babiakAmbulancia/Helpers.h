@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+const std::wstring encryption_password = L"qw12b3jwdih238fubwecib319ucbo;nl;jb-ce3b";
 template<class T>
 UINT editDist(T str1, T str2)
 {
@@ -20,3 +21,5 @@ UINT editDist(T str1, T str2)
 	}
 	return dp[l1][l2];
 }
+
+

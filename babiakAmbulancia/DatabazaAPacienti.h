@@ -5,4 +5,4 @@
 
 INT_PTR CALLBACK NovyPaciendDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
-void NovyPacientDialog(Databaza * p);
+void NovyPacientDialog(Databaza * p, HWND parent);

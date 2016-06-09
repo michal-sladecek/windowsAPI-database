@@ -41,10 +41,10 @@ INT_PTR CALLBACK vyhladavanieDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 	}
 	return (INT_PTR)FALSE;
 }
-std::vector<Pacientka> vyhladavaciDialog(Databaza * p, BOOL & result)
+std::vector<Pacientka> vyhladavaciDialog(Databaza * p, BOOL & result, HWND parent)
 {
 	curDatabaza = p;
-	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_VYHLADAVANIE), NULL, vyhladavanieDlgProc);
+	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_VYHLADAVANIE), parent, vyhladavanieDlgProc);
 	if (najdene.size() == 0)result = FALSE;
 	result = TRUE;
 	return najdene;
