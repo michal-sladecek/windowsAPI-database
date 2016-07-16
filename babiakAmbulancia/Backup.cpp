@@ -3,6 +3,7 @@
 #include "resource.h"
 #include "Databaza.h"
 #include "Shlwapi.h"
+#include "Helpers.h"
 
 #include <string>
 #include <fstream>
@@ -15,26 +16,10 @@ void saveDatabaza(WCHAR * fileName) {
 		int choice = MessageBox(NULL, L"S˙bor uû existuje. Chcete ho prepÌsaù?", L"Naozaj?", MB_YESNO | MB_ICONWARNING);
 		if (choice == IDNO)return;
 	}
-	std::wofstream subor;
-	subor.open(fileName, std::ios::out | std::ios::trunc | std::ios::binary);
-	if (!subor.is_open()) {
-		MessageBox(NULL, L"S˙bor sa nepodarilo otvoriù.", L"Chyba?", MB_OK);
-		return;
-	}
-	subor << data;
-	subor.close();
+	saveWstringToFile(fileName, data);
 }
 void loadDatabaza(WCHAR * fileName) {
-	std::locale::global(std::locale(""));
-	std::wifstream subor;
-	subor.open(fileName, std::ios::in);
-	if (!subor.is_open()) {
-		MessageBox(NULL, L"S˙bor sa nepodarilo otvoriù.", L"Chyba?", MB_OK);
-		return;
-	}
-	std::wstring data;
-	data.assign((std::istreambuf_iterator<wchar_t>(subor)), std::istreambuf_iterator<wchar_t>());
-	subor.close();
+	std::wstring data = loadFileIntoWstring(fileName);
 	curDatabaza->load(data);
 }
 INT_PTR CALLBACK BackupDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)

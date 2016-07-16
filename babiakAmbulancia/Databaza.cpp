@@ -5,9 +5,6 @@
 #include <utility>
 #include <algorithm>
 
-std::vector<Pacientka> & Databaza::as_list() {
-	return pacientky;
-}
 void Databaza::pridaj(Pacientka p)
 {
 	pacientky.push_back(p);
@@ -39,22 +36,45 @@ void Databaza::load(std::wstring data)
 	}
 }
 
-
-std::vector<Pacientka> Databaza::find(const std::vector<std::wstring> & hladane, size_t num) const
-{
-	std::vector<std::pair<UINT, int> > V(pacientky.size());
-	for (size_t i = 0; i < V.size(); i++) {
-		V[i] = { pacientky[i].matching(hladane),i };
-	}
-	sort(V.begin(), V.end());
-	std::vector<Pacientka> P;
-	for (size_t i = 0; i < num && i < V.size(); i++) {
-		P.push_back(pacientky[V[i].second]);
-	}
-	return P;
-}
-
 UINT32 Databaza::numberEntries()
 {
 	return pacientky.size();
+}
+
+void Databaza::queryAll()
+{
+	query.clear();
+	for (uint32_t i = 0; i < pacientky.size(); ++i)
+	{
+		query.push_back(i);
+	}
+}
+
+void Databaza::queryFind(const std::vector<std::wstring>& hladane, size_t num)
+{
+	std::vector<std::pair<UINT, int> > V(pacientky.size());
+	for (size_t i = 0; i < V.size(); i++) 
+	{
+		V[i] = { pacientky[i].matching(hladane),i };
+	}
+	sort(V.begin(), V.end());
+	query.clear();
+	for (size_t i = 0; i < num && i < V.size(); i++)
+	{
+		query.push_back(V[i].second);
+	}
+}
+
+uint32_t Databaza::querySize()
+{
+	return query.size();
+}
+
+Pacientka & Databaza::queryGet(uint32_t index)
+{
+	if (index >= query.size())
+	{
+		throw std::out_of_range("");
+	}
+	return pacientky[query[index]];
 }

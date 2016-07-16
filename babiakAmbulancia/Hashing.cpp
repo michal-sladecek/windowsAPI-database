@@ -14,7 +14,7 @@
 #define STATUS_UNSUCCESSFUL         ((NTSTATUS)0xC0000001L)
 
 
-std::wstring getHashValue(TCHAR * stringToHash) {
+std::wstring getHashValue(const wchar_t * stringToHash) {
 	std::wstring p = L"";
 	BCRYPT_ALG_HANDLE       hAlg = NULL;
 	BCRYPT_HASH_HANDLE      hHash = NULL;

@@ -20,6 +20,7 @@
 // Windows Header Files:
 #include <windows.h>
 #include <Commdlg.h>
+#include <Strsafe.h>
 #include <commctrl.h>
 
 // C RunTime Header Files
@@ -28,5 +29,12 @@
 #include <memory.h>
 #include <tchar.h>
 
-
+//C++ headers
+#include <vector>
+#include <string>
+#include <memory>
+#include <algorithm>
+#include <exception>
 // TODO: reference additional headers your program requires here
+
+#include "resource.h"

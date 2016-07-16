@@ -30,7 +30,7 @@ INT_PTR CALLBACK vyhladavanieDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 
 			std::vector<std::wstring> V = { std::wstring(meno), std::wstring(rodneCislo), std::wstring(telefonneCislo), std::wstring(zmluvnaPoistovna),
 				std::wstring(zmluvnyLekar), std::wstring(poznamka) };
-			najdene = curDatabaza->find(V, NUM_TO_FIND);
+			curDatabaza->queryFind(V, NUM_TO_FIND);
 			EndDialog(hDlg, LOWORD(wParam));
 		}
 		else if (LOWORD(wParam) == IDCANCEL) {
@@ -41,11 +41,9 @@ INT_PTR CALLBACK vyhladavanieDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 	}
 	return (INT_PTR)FALSE;
 }
-std::vector<Pacientka> vyhladavaciDialog(Databaza * p, BOOL & result, HWND parent)
+void vyhladavaciDialog(Databaza * p, BOOL & result, HWND parent)
 {
 	curDatabaza = p;
 	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_VYHLADAVANIE), parent, vyhladavanieDlgProc);
-	if (najdene.size() == 0)result = FALSE;
 	result = TRUE;
-	return najdene;
 }

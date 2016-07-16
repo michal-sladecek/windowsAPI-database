@@ -27,9 +27,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="babiakAmbulancia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Authentification.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,15 +51,18 @@
     <ClInclude Include="Vyhladavanie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListPacientok.h">
+    <ClInclude Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ListView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="babiakAmbulancia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Authentification.cpp">
@@ -83,13 +83,22 @@
     <ClCompile Include="DatabazaAPacienti.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vyhladavanie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListPacientok.cpp">
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,5 +114,11 @@
     <Image Include="babiakAmbulancia.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\..\..\..\..\Downloads\VS2012 Image Library\VS2012 Modern Image Library\_Common Elements\PNG\folder_Open_32xSM.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

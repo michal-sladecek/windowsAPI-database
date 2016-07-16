@@ -11,7 +11,7 @@ static BOOL authentificated = FALSE;
 BOOL is_authentificated() {
 	return authentificated;
 }
-BOOL Authentificate(TCHAR * password)
+BOOL Authentificate(const wchar_t * password)
 {
 	std::wstring p = getHashValue(password);
 	if (p==std::wstring(testing_password)) {
