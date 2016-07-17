@@ -25,6 +25,6 @@ public:
 	ListView::ListView(HWND parent, std::shared_ptr<Databaza> db);
 
 	void HandleWM_NOTIFY(LPARAM lParam);
-	void show();
-	void resize();
+	void Show();
+	void Resize();
 };

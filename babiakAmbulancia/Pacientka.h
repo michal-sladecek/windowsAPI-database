@@ -3,41 +3,42 @@
 #include "stdafx.h"
 
 #include <vector>
-class Pacientka {
-	std::wstring meno;
-	std::wstring rodneCislo;
-	std::wstring telefonneCislo;
-	std::wstring zmluvnaPoistovna;
-	std::wstring zmluvnyLekar;
-	std::wstring poznamka;
+class Patient {
+	std::wstring m_name;
+	std::wstring m_birthNumber;
+	std::wstring m_phoneNumber;
+	std::wstring m_insurance;
+	std::wstring m_doctor;
+	std::wstring m_note;
 	//creationTime funguje tiez ako unikatne ID pre pacientky
-	time_t creationTime;
+	time_t m_creationTime;
 public:
-	Pacientka();
-	Pacientka(BOOL nova);
-	Pacientka(std::wstring _meno, std::wstring _rodneCislo, std::wstring _telefonneCislo,
+	Patient() = default;
+	Patient(bool nova);
+	Patient(std::wstring _meno, std::wstring _rodneCislo, std::wstring _telefonneCislo,
 		std::wstring _zmluvnaPoistovna, std::wstring _zmluvnyLekar, std::wstring _poznamka);
+	
 	time_t getID();
-	std::wstring getIDstr();
-	std::wstring getPoznamka();
-	std::wstring getMeno();
-	std::wstring getRodneCislo();
-	std::wstring getTelCislo();
-	std::wstring getZmluvnaPoistovna();
-	std::wstring getZmluvnyLekar();
+	std::wstring getIDasString();
+	std::wstring getNote();
+	std::wstring getName();
+	std::wstring getBirthNumber();
+	std::wstring getPhoneNumber();
+	std::wstring getInsurance();
+	std::wstring getDoctor();
 
-	std::wstring exportSerialize();
-	void load(std::wstring);
+	std::wstring ExportSerialize();
+	void Load(std::wstring);
 
-	void setPoznamka(std::wstring);
-	void setMeno(std::wstring);
-	void setRodneCislo(std::wstring);
-	void setTelCislo(std::wstring);
-	void setZmluvnaPoistovna(std::wstring);
-	void setZmluvnyLekar(std::wstring);
+	void setNote(std::wstring);
+	void setName(std::wstring);
+	void setBirthNumber(std::wstring);
+	void setPhoneNumber(std::wstring);
+	void setInsurance(std::wstring);
+	void setDoctor(std::wstring);
 
-	UINT matching(const std::vector<std::wstring> & hladane) const;
+	uint32_t matchIndex(const std::vector<std::wstring> & hladane) const;
 };
 
-Pacientka loadCreate(std::wstring data);
+Patient LoadCreate(std::wstring data);
 

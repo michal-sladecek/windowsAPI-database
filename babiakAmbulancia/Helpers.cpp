@@ -9,7 +9,7 @@ BOOL DirectoryExists(LPCTSTR szPath)
 		(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-std::wstring loadFileIntoWstring(const std::wstring & path)
+std::wstring LoadFileIntoWstring(const std::wstring & path)
 {
 	std::locale::global(std::locale(""));
 	std::wifstream subor;
@@ -23,7 +23,7 @@ std::wstring loadFileIntoWstring(const std::wstring & path)
 	return data;
 }
 
-void saveWstringToFile(const std::wstring & path, const std::wstring & data)
+void SsaveWstringToFile(const std::wstring & path, const std::wstring & data)
 {
 	std::wofstream subor;
 	subor.open(path, std::ios::out | std::ios::trunc | std::ios::binary);

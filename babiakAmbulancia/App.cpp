@@ -8,7 +8,7 @@
 #include "LoginDialog.h"
 #include "Pacientka.h"
 #include "Vyhladavanie.h"
-#include "DatabazaAPacienti.h"
+#include "Databaza.h"
 
 LRESULT CALLBACK App::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -20,7 +20,7 @@ LRESULT CALLBACK App::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	}
 	else
 	{
-		DefWindowProc(hWnd, message, wParam, lParam);
+		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 }
 
@@ -37,33 +37,39 @@ LRESULT App::ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
 		switch (wmId)
 		{
 		case ID_DATABAZA:
-			m_databaza->queryAll();
-			m_listView.show();
+			m_database->queryAll();
+			m_listView.Show();
 			break;
 		case ID_ODHLASENIE:
 			DestroyWindow(m_window);
 			break;
 		case ID_VYHLADAVANIE:
 		{
-			BOOL ok = false;
-			vyhladavaciDialog(m_databaza.get(), ok, m_window);
+			BOOL ok = FALSE;
+			vyhladavaciDialog(m_database.get(), ok, m_window);
 			if (ok == TRUE)
 			{
-				m_listView.show();
+				m_listView.Show();
 			}
 				
 		}
 		break;
 		case ID_ZALOHA:
-			BackupDialog(m_databaza.get(), m_window);
-			m_databaza->queryAll();
-			m_listView.show();
+		{
+			BackupSystem::BackupDialog dialog(m_window, m_database);
+			dialog.Show();
+			m_database->queryAll();
+			m_listView.Show();
 			break;
+		}
 		case ID_NOVYPACIENT:
-			NovyPacientDialog(m_databaza.get(), m_window);
-			m_databaza->queryAll();
-			m_listView.show();
+		{
+			AddPatientDialog dialog(m_window, m_database);
+			dialog.Show();
+			m_database->queryAll();
+			m_listView.Show();
 			break;
+		}
 		default:
 			return DefWindowProc(m_window, message, wParam, lParam);
 		}
@@ -85,10 +91,10 @@ LRESULT App::ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 	case WM_SIZE:
-		m_listView.resize();
+		m_listView.Resize();
 		break;
 	case WM_SIZING:
-		m_listView.resize();
+		m_listView.Resize();
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -144,7 +150,7 @@ _Check_return_ bool App::StartWindow()
 
 App::App()
 {
-	m_databaza = std::make_shared<Databaza>();
+	m_database = std::make_shared<Databaza>();
 	
 	m_instance = GetModuleHandle(NULL);
 	if (!RegisterApp())
@@ -155,12 +161,13 @@ App::App()
 	{
 		throw std::runtime_error("Could not run window.");
 	}
-	AuthentificateDialog(m_instance, m_window);
-	if (!is_authentificated()) 
+	AuthentificationSystem::AuthentificateDialog dialog(m_window);
+	dialog.Show();
+	if (!AuthentificationSystem::IsAuthentificated()) 
 	{
 		throw std::runtime_error("Authentification error");
 	}
-	m_listView = ListView(m_window, m_databaza);
+	m_listView = ListView(m_window, m_database);
 	SetWindowLongPtr(m_window, GWLP_USERDATA,
 		reinterpret_cast<LPARAM>(this));
 }
@@ -180,6 +187,6 @@ bool App::Run()
 			DispatchMessage(&msg);
 		}
 	}
-	std::cout << m_databaza.use_count() << "\n";
+	std::cout << m_database.use_count() << "\n";
 	return msg.wParam;
 }

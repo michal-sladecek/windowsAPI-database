@@ -2,8 +2,8 @@
 #include "Vyhladavanie.h"
 #include "resource.h"
 #define NUM_TO_FIND 5
+
 static Databaza * curDatabaza;
-static std::vector<Pacientka> najdene;
 INT_PTR CALLBACK vyhladavanieDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
@@ -20,7 +20,7 @@ INT_PTR CALLBACK vyhladavanieDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDOK)
 		{
-			WCHAR meno[50], rodneCislo[20], telefonneCislo[20], zmluvnaPoistovna[50], zmluvnyLekar[50], poznamka[1000];
+			wchar_t meno[50], rodneCislo[20], telefonneCislo[20], zmluvnaPoistovna[50], zmluvnyLekar[50], poznamka[1000];
 			GetWindowText(GetDlgItem(hDlg, IDC_MENO), meno, 50);
 			GetWindowText(GetDlgItem(hDlg, IDC_RODNECISLO), rodneCislo, 20);
 			GetWindowText(GetDlgItem(hDlg, IDC_TELEFONNECISLO), telefonneCislo, 20);
@@ -34,7 +34,6 @@ INT_PTR CALLBACK vyhladavanieDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 			EndDialog(hDlg, LOWORD(wParam));
 		}
 		else if (LOWORD(wParam) == IDCANCEL) {
-			najdene.clear();
 			EndDialog(hDlg, LOWORD(wParam));
 		}
 		break;

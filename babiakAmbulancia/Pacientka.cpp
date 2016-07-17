@@ -9,74 +9,70 @@
 #include <ctime>
 
 
-inline Pacientka::Pacientka() {
-
-}
-
-inline Pacientka::Pacientka(BOOL nova) {
+inline Patient::Patient(bool nova) {
 	if (nova)
-		creationTime = time(NULL);
+		m_creationTime = time(NULL);
 }
 
-Pacientka::Pacientka(std::wstring _meno, std::wstring _rodneCislo, std::wstring _telefonneCislo, std::wstring _zmluvnaPoistovna, std::wstring _zmluvnyLekar, std::wstring _poznamka) {
-	creationTime = time(NULL);
-	meno = _meno;
-	rodneCislo = _rodneCislo;
-	telefonneCislo = _telefonneCislo;
-	zmluvnaPoistovna = _zmluvnaPoistovna;
-	zmluvnyLekar = _zmluvnyLekar;
-	poznamka = _poznamka;
+Patient::Patient(std::wstring _meno, std::wstring _rodneCislo, std::wstring _telefonneCislo, std::wstring _zmluvnaPoistovna, std::wstring _zmluvnyLekar, std::wstring _poznamka) {
+	m_creationTime = time(NULL);
+	m_name = _meno;
+	m_birthNumber = _rodneCislo;
+	m_phoneNumber = _telefonneCislo;
+	m_insurance = _zmluvnaPoistovna;
+	m_doctor = _zmluvnyLekar;
+	m_note = _poznamka;
 }
 
-time_t Pacientka::getID()
+time_t Patient::getID()
 {
-	return creationTime;
+	return m_creationTime;
 }
 
-std::wstring Pacientka::getIDstr()
+std::wstring Patient::getIDasString()
 {
-	return std::to_wstring(creationTime);
+	return std::to_wstring(m_creationTime);
 }
 
-std::wstring Pacientka::getPoznamka()
+std::wstring Patient::getNote()
 {
-	return poznamka;
+	return m_note;
 }
 
-std::wstring Pacientka::getMeno()
+std::wstring Patient::getName()
 {
-	return meno;
+	return m_name;
 }
 
-std::wstring Pacientka::getRodneCislo()
+std::wstring Patient::getBirthNumber()
 {
-	return rodneCislo;
+	return m_birthNumber;
 }
 
-std::wstring Pacientka::getTelCislo()
+std::wstring Patient::getPhoneNumber()
 {
-	return telefonneCislo;
+	return m_phoneNumber;
 }
 
-std::wstring Pacientka::getZmluvnaPoistovna()
+std::wstring Patient::getInsurance()
 {
-	return zmluvnaPoistovna;
+	return m_insurance;
 }
 
-std::wstring Pacientka::getZmluvnyLekar()
+std::wstring Patient::getDoctor()
 {
-	return zmluvnyLekar;
+	return m_doctor;
 }
 
-std::wstring Pacientka::exportSerialize()
+std::wstring Patient::ExportSerialize()
 {
 	std::wstring serialized;
 	std::wstring beg(TEXT("[")), en(TEXT("]")), oddelovac(TEXT("|"));
-	serialized = beg+ std::to_wstring(creationTime) + oddelovac+ meno + oddelovac + rodneCislo + oddelovac + telefonneCislo + oddelovac + zmluvnaPoistovna + oddelovac + zmluvnyLekar + oddelovac + poznamka + en;
+	serialized = beg+ std::to_wstring(m_creationTime) + oddelovac+ m_name + oddelovac + m_birthNumber + oddelovac + m_phoneNumber + oddelovac + m_insurance + oddelovac + m_doctor + oddelovac + m_note + en;
 	return serialized;
 }
 
-void Pacientka::load(std::wstring data)
+void Patient::Load(std::wstring data)
 {
 	size_t len = data.length();
 	if (data[0] != '[')throw std::invalid_argument("Pacientka is not in the right format");
@@ -89,60 +85,60 @@ void Pacientka::load(std::wstring data)
 			beg = i + 1;
 		}
 	}
-	creationTime = std::stoi(V[0]);
-	meno = V[1];
-	rodneCislo = V[2];
-	telefonneCislo = V[3];
-	zmluvnaPoistovna = V[4];
-	zmluvnyLekar = V[5];
-	poznamka = V[6];
+	m_creationTime = std::stoi(V[0]);
+	m_name = V[1];
+	m_birthNumber = V[2];
+	m_phoneNumber = V[3];
+	m_insurance = V[4];
+	m_doctor = V[5];
+	m_note = V[6];
 }
-Pacientka loadCreate(std::wstring data) {
-	Pacientka p;
-	p.load(data);
+Patient LoadCreate(std::wstring data) {
+	Patient p;
+	p.Load(data);
 	return p;
 }
-void Pacientka::setPoznamka(std::wstring _pm)
+void Patient::setNote(std::wstring _pm)
 {
-	poznamka = _pm;
+	m_note = _pm;
 }
 
-void Pacientka::setMeno(std::wstring _meno)
+void Patient::setName(std::wstring _meno)
 {
-	meno = _meno;
+	m_name = _meno;
 }
 
-void Pacientka::setRodneCislo(std::wstring _rc)
+void Patient::setBirthNumber(std::wstring _rc)
 {
-	rodneCislo = _rc;
+	m_birthNumber = _rc;
 }
 
-void Pacientka::setTelCislo(std::wstring _tc)
+void Patient::setPhoneNumber(std::wstring _tc)
 {
-	telefonneCislo = _tc;
+	m_phoneNumber = _tc;
 }
 
-void Pacientka::setZmluvnaPoistovna(std::wstring _zp)
+void Patient::setInsurance(std::wstring _zp)
 {
-	zmluvnaPoistovna = _zp;
+	m_insurance = _zp;
 }
 
-void Pacientka::setZmluvnyLekar(std::wstring _zl)
+void Patient::setDoctor(std::wstring _zl)
 {
-	zmluvnyLekar = _zl;
+	m_doctor = _zl;
 }
 
 // Meno, RC, TC, ZP, ZL, Poznamka
-UINT Pacientka::matching(const std::vector<std::wstring> & hladane) const
+uint32_t Patient::matchIndex(const std::vector<std::wstring> & hladane) const
 {
-	UINT editDistFilters = 0;
+	uint32_t editDistFilters = 0;
 	if (hladane.size() != 6) throw std::invalid_argument("The string array doesn't have size 6");
-	if (hladane[0] != L"") editDistFilters += editDist(hladane[0], meno);
-	if (hladane[1] != L"") editDistFilters += editDist(hladane[1], rodneCislo);
-	if (hladane[2] != L"") editDistFilters += editDist(hladane[2], telefonneCislo);
-	if (hladane[3] != L"") editDistFilters += editDist(hladane[3], zmluvnaPoistovna);
-	if (hladane[4] != L"") editDistFilters += editDist(hladane[4], zmluvnyLekar);
-	if (hladane[5] != L"") editDistFilters += editDist(hladane[5], poznamka);
+	if (hladane[0] != L"") editDistFilters += editDist(hladane[0], m_name);
+	if (hladane[1] != L"") editDistFilters += editDist(hladane[1], m_birthNumber);
+	if (hladane[2] != L"") editDistFilters += editDist(hladane[2], m_phoneNumber);
+	if (hladane[3] != L"") editDistFilters += editDist(hladane[3], m_insurance);
+	if (hladane[4] != L"") editDistFilters += editDist(hladane[4], m_doctor);
+	if (hladane[5] != L"") editDistFilters += editDist(hladane[5], m_note);
 	return editDistFilters;
 }
 

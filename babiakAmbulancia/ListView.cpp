@@ -5,15 +5,15 @@
 #include "ListView.h"
 
 
-static std::vector<Pacientka> toShowInListView;
+static std::vector<Patient> toShowInListView;
 
-void ListView::resize() {
+void ListView::Resize() {
 	RECT A;
 	GetClientRect(m_parent, &A);
 	SetWindowPos(m_window, 0, 0, 0, A.right, A.bottom, SWP_NOZORDER);
 }
 
-void ListView::show()
+void ListView::Show()
 {
 	ListView_DeleteAllItems(m_window);
 	if(InsertListViewItems() == false)  
@@ -33,25 +33,25 @@ void ListView::HandleWM_NOTIFY(LPARAM lParam)
 		switch (plvdi->item.iSubItem)
 		{
 		case 0:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getMeno().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getName().c_str());
 			break;
 		case 1:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getRodneCislo().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getBirthNumber().c_str());
 			break;
 		case 2:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getTelCislo().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getPhoneNumber().c_str());
 			break;
 		case 3:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getZmluvnaPoistovna().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getInsurance().c_str());
 			break;
 		case 4:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getZmluvnyLekar().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getDoctor().c_str());
 			break;
 		case 5:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getPoznamka().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getNote().c_str());
 			break;
 		case 6:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getIDstr().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getIDasString().c_str());
 			break;
 		default:
 			break;

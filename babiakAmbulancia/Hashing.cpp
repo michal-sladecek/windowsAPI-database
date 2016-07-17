@@ -14,7 +14,7 @@
 #define STATUS_UNSUCCESSFUL         ((NTSTATUS)0xC0000001L)
 
 
-std::wstring getHashValue(const wchar_t * stringToHash) {
+std::wstring GetHashValue(const wchar_t * stringToHash) {
 	std::wstring p = L"";
 	BCRYPT_ALG_HANDLE       hAlg = NULL;
 	BCRYPT_HASH_HANDLE      hHash = NULL;
@@ -25,7 +25,7 @@ std::wstring getHashValue(const wchar_t * stringToHash) {
 	PBYTE                   pbHashObject = NULL;
 	PBYTE                   pbHash = NULL;
 	std::string hashTextValue;
-	TCHAR hashTextReturnVal[100];
+	wchar_t hashTextReturnVal[100];
 
 
 	if (!NT_SUCCESS(status = BCryptOpenAlgorithmProvider(
@@ -99,7 +99,7 @@ std::wstring getHashValue(const wchar_t * stringToHash) {
 	if (!NT_SUCCESS(status = BCryptHashData(
 		hHash,
 		(PBYTE)stringToHash,
-		sizeof(TCHAR)*_tcslen(stringToHash),
+		sizeof(wchar_t)*_tcslen(stringToHash),
 		0)))
 	{
 		wprintf(L"**** Error 0x%x returned by BCryptHashData\n", status);

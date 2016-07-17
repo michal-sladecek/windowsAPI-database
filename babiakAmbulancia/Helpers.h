@@ -24,5 +24,5 @@ UINT editDist(T str1, T str2)
 }
 
 BOOL DirectoryExists(LPCTSTR szPath);
-std::wstring loadFileIntoWstring(const std::wstring & path);
-void saveWstringToFile(const std::wstring & path, const std::wstring & data);
+std::wstring LoadFileIntoWstring(const std::wstring & path);
+void SsaveWstringToFile(const std::wstring & path, const std::wstring & data);

@@ -162,7 +162,7 @@
     <ClInclude Include="Authentification.h" />
     <ClInclude Include="Backup.h" />
     <ClInclude Include="Databaza.h" />
-    <ClInclude Include="DatabazaAPacienti.h" />
+    <ClInclude Include="Dialog.h" />
     <ClInclude Include="Hashing.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="ListView.h" />
@@ -176,10 +176,10 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Authentification.cpp" />
+    <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Backup.cpp" />
     <ClCompile Include="Databaza.cpp" />
-    <ClCompile Include="DatabazaAPacienti.cpp" />
     <ClCompile Include="Hashing.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="ListView.cpp" />

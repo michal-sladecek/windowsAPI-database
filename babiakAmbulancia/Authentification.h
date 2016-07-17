@@ -1,11 +1,17 @@
 #pragma once
-#include "stdafx.h"
+#include "resource.h"
+#include "Dialog.h"
 
-/* Authentificate yourself with password, returns TRUE if ok, FALSE otherwise */
-BOOL Authentificate(const wchar_t * password);
-
-/* Use our dialog box authentification, this prompts the user for password in a dialog box */
-BOOL AuthentificateDialog(HINSTANCE, HWND parent);
-
-/* Checks whether the user is authentificated */
-BOOL is_authentificated();
+namespace AuthentificationSystem
+{
+	class AuthentificateDialog : public Dialog
+	{
+		INT_PTR ProcessMessage(UINT message, WPARAM wParam);
+	public:
+		AuthentificateDialog(HWND parent) :Dialog(parent)
+		{
+			m_template = IDD_LOGIN;
+		}
+	};
+	bool IsAuthentificated();
+}

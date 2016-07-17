@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+
+
 class Doktor {
 	std::wstring meno;
 	std::wstring authHash;

@@ -1,5 +1,21 @@
 #pragma once
-#include "stdafx.h"
+#include "Dialog.h"
 #include "Databaza.h"
 
-BOOL BackupDialog(Databaza * p, HWND parent);
+#include <memory>
+
+namespace BackupSystem
+{
+	class BackupDialog : public Dialog
+	{
+	private:
+		std::shared_ptr<Databaza> m_database;
+		INT_PTR ProcessMessage(UINT message, WPARAM wParam);
+	public:
+		BackupDialog(HWND parent, std::shared_ptr<Databaza> database) :
+			Dialog(parent), m_database(database)
+		{
+			m_template = IDD_ZALOHA;
+		}
+	};
+}
