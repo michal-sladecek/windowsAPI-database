@@ -9,14 +9,15 @@ INT_PTR BackupSystem::BackupDialog::ProcessMessage(UINT message, WPARAM wParam)
 	case WM_INITDIALOG:
 	{
 		CheckRadioButton(m_window, IDC_OUTPUT, IDC_INPUT, IDC_OUTPUT);
+		HANDLE hIcon1 = LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_SMALL), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
+		SendMessage(GetDlgItem(m_window, IDC_CHOOSEFILE), BM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)hIcon1);
 		return (INT_PTR)TRUE;
 	}
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDC_CHOOSEFILE) {
 
-			wchar_t szFileName[MAX_PATH];
+			wchar_t szFileName[MAX_PATH] = L"";
 			OPENFILENAME ofn = {};
-
 			ofn.lStructSize = sizeof(ofn);
 			ofn.hwndOwner = m_window;
 			ofn.hInstance = GetModuleHandle(NULL);
@@ -44,11 +45,11 @@ INT_PTR BackupSystem::BackupDialog::ProcessMessage(UINT message, WPARAM wParam)
 			GetWindowText(GetDlgItem(m_window, IDC_PATHFILE), text, MAX_PATH - 1);
 			if (IsDlgButtonChecked(m_window, IDC_OUTPUT) == BST_CHECKED)
 			{
-				m_database->saveToFile(text);
+				m_database->SaveToFile(text);
 			}
 			else if (IsDlgButtonChecked(m_window, IDC_INPUT) == BST_CHECKED)
 			{
-				m_database->loadFromFile(text);
+				m_database->LoadFromFile(text);
 			}
 			EndDialog(m_window, LOWORD(wParam));
 		}

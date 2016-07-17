@@ -14,7 +14,7 @@ class ListView
 {
 	HWND m_window;
 	HWND m_parent;
-	std::shared_ptr<Databaza> m_databaza;
+	std::shared_ptr<Database> m_databaza;
 
 	bool InitListViewColumns();
 	bool CreateListView();
@@ -22,7 +22,7 @@ class ListView
 	
 public:
 	ListView() :m_window(NULL), m_parent(NULL) {}
-	ListView::ListView(HWND parent, std::shared_ptr<Databaza> db);
+	ListView::ListView(HWND parent, std::shared_ptr<Database> db);
 
 	void HandleWM_NOTIFY(LPARAM lParam);
 	void Show();

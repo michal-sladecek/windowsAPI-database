@@ -37,7 +37,7 @@ public:
 	void setInsurance(std::wstring);
 	void setDoctor(std::wstring);
 
-	uint32_t matchIndex(const std::vector<std::wstring> & hladane) const;
+	uint32_t MatchIndex(const std::vector<std::wstring> & hladane) const;
 };
 
 Patient LoadCreate(std::wstring data);

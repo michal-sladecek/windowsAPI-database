@@ -5,10 +5,9 @@
 #include "Backup.h"
 #include "ListView.h"
 #include <iostream>
-#include "LoginDialog.h"
-#include "Pacientka.h"
-#include "Vyhladavanie.h"
+#include "Search.h"
 #include "Databaza.h"
+#include "AddPatient.h"
 
 LRESULT CALLBACK App::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -37,7 +36,7 @@ LRESULT App::ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
 		switch (wmId)
 		{
 		case ID_DATABAZA:
-			m_database->queryAll();
+			m_database->QueryAllPatients();
 			m_listView.Show();
 			break;
 		case ID_ODHLASENIE:
@@ -45,20 +44,16 @@ LRESULT App::ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_VYHLADAVANIE:
 		{
-			BOOL ok = FALSE;
-			vyhladavaciDialog(m_database.get(), ok, m_window);
-			if (ok == TRUE)
-			{
-				m_listView.Show();
-			}
-				
+			SearchDialog dialog(m_window,m_database);
+			dialog.Show();
+			m_listView.Show();			
 		}
 		break;
 		case ID_ZALOHA:
 		{
 			BackupSystem::BackupDialog dialog(m_window, m_database);
 			dialog.Show();
-			m_database->queryAll();
+			m_database->QueryAllPatients();
 			m_listView.Show();
 			break;
 		}
@@ -66,7 +61,7 @@ LRESULT App::ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			AddPatientDialog dialog(m_window, m_database);
 			dialog.Show();
-			m_database->queryAll();
+			m_database->QueryAllPatients();
 			m_listView.Show();
 			break;
 		}
@@ -150,7 +145,7 @@ _Check_return_ bool App::StartWindow()
 
 App::App()
 {
-	m_database = std::make_shared<Databaza>();
+	m_database = std::make_shared<Database>();
 	
 	m_instance = GetModuleHandle(NULL);
 	if (!RegisterApp())
@@ -187,6 +182,5 @@ bool App::Run()
 			DispatchMessage(&msg);
 		}
 	}
-	std::cout << m_database.use_count() << "\n";
-	return msg.wParam;
+	return true;
 }

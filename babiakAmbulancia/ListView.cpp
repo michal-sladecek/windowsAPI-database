@@ -1,11 +1,8 @@
 #include "stdafx.h"
 
-#include "Pacientka.h"
 #include "Databaza.h"
 #include "ListView.h"
 
-
-static std::vector<Patient> toShowInListView;
 
 void ListView::Resize() {
 	RECT A;
@@ -29,29 +26,29 @@ void ListView::HandleWM_NOTIFY(LPARAM lParam)
 	case LVN_GETDISPINFO:
 
 		plvdi = (NMLVDISPINFO*)lParam;
-		if (plvdi->item.iItem >= m_databaza->numberEntries())break;
+		if (plvdi->item.iItem >= m_databaza->NumberOfPatients())break;
 		switch (plvdi->item.iSubItem)
 		{
 		case 0:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getName().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->QueryGet(plvdi->item.iItem).getName().c_str());
 			break;
 		case 1:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getBirthNumber().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->QueryGet(plvdi->item.iItem).getBirthNumber().c_str());
 			break;
 		case 2:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getPhoneNumber().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->QueryGet(plvdi->item.iItem).getPhoneNumber().c_str());
 			break;
 		case 3:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getInsurance().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->QueryGet(plvdi->item.iItem).getInsurance().c_str());
 			break;
 		case 4:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getDoctor().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->QueryGet(plvdi->item.iItem).getDoctor().c_str());
 			break;
 		case 5:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getNote().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->QueryGet(plvdi->item.iItem).getNote().c_str());
 			break;
 		case 6:
-			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->queryGet(plvdi->item.iItem).getIDasString().c_str());
+			StringCchCopy(plvdi->item.pszText, plvdi->item.cchTextMax, m_databaza->QueryGet(plvdi->item.iItem).getIDasString().c_str());
 			break;
 		default:
 			break;
@@ -65,7 +62,7 @@ void ListView::HandleWM_NOTIFY(LPARAM lParam)
 
 bool ListView::InsertListViewItems()
 {
-	uint32_t cItems = m_databaza->querySize();
+	uint32_t cItems = m_databaza->QuerySize();
 	LVITEM lvI = {};
 
 	lvI.pszText = LPSTR_TEXTCALLBACK; 
@@ -144,7 +141,7 @@ bool ListView::CreateListView()
 	return true;
 }
 
-ListView::ListView(HWND parent, std::shared_ptr<Databaza> db)
+ListView::ListView(HWND parent, std::shared_ptr<Database> db)
 	:m_parent(parent), m_databaza(db)
 {
 	if (!CreateListView())

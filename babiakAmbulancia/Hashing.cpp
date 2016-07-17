@@ -154,8 +154,3 @@ Cleanup:
 
 	return p;
 }
-
-std::wstring encrypt(std::wstring str, std::wstring pass)
-{
-	return std::wstring();
-}

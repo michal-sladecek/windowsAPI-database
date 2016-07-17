@@ -12,7 +12,7 @@ class App
 	const std::wstring appName = L"PRENATAL Databáza";
 	const std::wstring className = L"PRENATAL";
 
-	std::shared_ptr<Databaza> m_database;
+	std::shared_ptr<Database> m_database;
 	ListView m_listView;
 
 	HINSTANCE m_instance;

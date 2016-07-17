@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Pacientka.h"
+#include "Patient.h"
 #include "Helpers.h"
 
 #include <vector>
@@ -129,16 +129,16 @@ void Patient::setDoctor(std::wstring _zl)
 }
 
 // Meno, RC, TC, ZP, ZL, Poznamka
-uint32_t Patient::matchIndex(const std::vector<std::wstring> & hladane) const
+uint32_t Patient::MatchIndex(const std::vector<std::wstring> & hladane) const
 {
 	uint32_t editDistFilters = 0;
 	if (hladane.size() != 6) throw std::invalid_argument("The string array doesn't have size 6");
-	if (hladane[0] != L"") editDistFilters += editDist(hladane[0], m_name);
-	if (hladane[1] != L"") editDistFilters += editDist(hladane[1], m_birthNumber);
-	if (hladane[2] != L"") editDistFilters += editDist(hladane[2], m_phoneNumber);
-	if (hladane[3] != L"") editDistFilters += editDist(hladane[3], m_insurance);
-	if (hladane[4] != L"") editDistFilters += editDist(hladane[4], m_doctor);
-	if (hladane[5] != L"") editDistFilters += editDist(hladane[5], m_note);
+	if (hladane[0] != L"") editDistFilters += StringEditDistance(hladane[0], m_name);
+	if (hladane[1] != L"") editDistFilters += StringEditDistance(hladane[1], m_birthNumber);
+	if (hladane[2] != L"") editDistFilters += StringEditDistance(hladane[2], m_phoneNumber);
+	if (hladane[3] != L"") editDistFilters += StringEditDistance(hladane[3], m_insurance);
+	if (hladane[4] != L"") editDistFilters += StringEditDistance(hladane[4], m_doctor);
+	if (hladane[5] != L"") editDistFilters += StringEditDistance(hladane[5], m_note);
 	return editDistFilters;
 }
 

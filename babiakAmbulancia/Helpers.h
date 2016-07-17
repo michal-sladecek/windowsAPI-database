@@ -4,25 +4,7 @@
 #include <vector>
 #include <fstream>
 
-const std::wstring encryption_password = L"qw12b3jwdih238fubwecib319ucbo;nl;jb-ce3b";
-template<class T>
-UINT editDist(T str1, T str2)
-{
-	size_t l1 = str1.length(), l2 = str2.length();
-	std::vector<std::vector<int> > dp(l1 + 1, std::vector<int>(l2 + 1, 0));
-	for (size_t i = 0; i <= l1; i++) {
-		for (size_t j = 0; j <= l2; j++) {
-			if (i == 0)dp[i][j] = j;
-			else if (j == 0)dp[i][j] = i;
-			else if (str1[i - 1] == str2[j - 1])
-				dp[i][j] = dp[i - 1][j - 1];
-			else
-				dp[i][j] = 1 + min(dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]);
-		}
-	}
-	return dp[l1][l2];
-}
-
-BOOL DirectoryExists(LPCTSTR szPath);
+uint32_t StringEditDistance(std::wstring str1, std::wstring str2);
+bool DoesDirectoryExist(LPCTSTR szPath);
 std::wstring LoadFileIntoWstring(const std::wstring & path);
-void SsaveWstringToFile(const std::wstring & path, const std::wstring & data);
+void SaveWstringToFile(const std::wstring & path, const std::wstring & data);

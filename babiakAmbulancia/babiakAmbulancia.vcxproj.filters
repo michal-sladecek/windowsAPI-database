@@ -13,99 +13,67 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Refactored">
-      <UniqueIdentifier>{27524d78-cd65-4f94-bb08-7d4d87a6e099}</UniqueIdentifier>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{29ab03f2-467d-4a5b-8df7-d2efaaec5d89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Refactored">
-      <UniqueIdentifier>{3ec228d3-dcf4-4f69-a073-008613860832}</UniqueIdentifier>
+    <Filter Include="Header Files\Helping">
+      <UniqueIdentifier>{90820d4c-811d-4127-a2d1-d296ebcbf8a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Database">
+      <UniqueIdentifier>{896a6515-01de-4363-a715-938498dbb43c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{eb4affbf-3ff0-4138-8559-a2f3180eae0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helping">
+      <UniqueIdentifier>{49db3db7-d324-48d1-a0f5-737a34a79514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Database">
+      <UniqueIdentifier>{e83a41f5-b799-4fa1-a14b-aec82ce21002}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hashing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pacientka.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Databaza.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vyhladavanie.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dialog.h">
-      <Filter>Header Files\Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="Authentification.h">
-      <Filter>Header Files\Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files\Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files\Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="App.h">
-      <Filter>Header Files\Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="ListView.h">
-      <Filter>Header Files\Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="Backup.h">
-      <Filter>Header Files\Refactored</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hashing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pacientka.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Databaza.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vyhladavanie.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Authentification.cpp">
-      <Filter>Source Files\Refactored</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Dialog.cpp">
-      <Filter>Source Files\Refactored</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPatient.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Authentification.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Backup.cpp">
-      <Filter>Source Files\Refactored</Filter>
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="ListView.cpp">
-      <Filter>Source Files\Refactored</Filter>
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files\Refactored</Filter>
+    <ClCompile Include="Search.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers.cpp">
+      <Filter>Source Files\Helping</Filter>
+    </ClCompile>
+    <ClCompile Include="Hashing.cpp">
+      <Filter>Source Files\Helping</Filter>
+    </ClCompile>
+    <ClCompile Include="Databaza.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="Patient.cpp">
+      <Filter>Source Files\Database</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +93,44 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AddPatient.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Backup.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ListView.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Search.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Authentification.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <Filter>Header Files\Helping</Filter>
+    </ClInclude>
+    <ClInclude Include="Hashing.h">
+      <Filter>Header Files\Helping</Filter>
+    </ClInclude>
+    <ClInclude Include="Databaza.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

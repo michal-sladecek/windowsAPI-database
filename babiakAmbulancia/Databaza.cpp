@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Databaza.h"
-#include "Pacientka.h"
+#include "Patient.h"
 #include "Helpers.h"
 #include "Shlwapi.h"
 
@@ -8,129 +8,92 @@
 #include <utility>
 #include <algorithm>
 
-void Databaza::pridaj(Patient p)
+void Database::Add(Patient p)
 {
-	pacientky.push_back(p);
+	m_patientList.push_back(p);
 }
 
-std::wstring Databaza::exportSerialize()
+std::wstring Database::ExportSerialize()
 {
 	std::wstring beg = L"{", en = L"}", oddelovac = L"|";
 	std::wstring writeout = beg;
-	for (auto p : pacientky) {
+	for (auto p : m_patientList) {
 		writeout += p.ExportSerialize() + oddelovac;
 	}
 	writeout.pop_back();
 	return writeout + en;
 }
 
-void Databaza::load(std::wstring data)
+void Database::Load(std::wstring data)
 {
-	pacientky.clear();
+	m_patientList.clear();
 	size_t len = data.length();
 	if (data[0] != '{')throw std::invalid_argument("Database is not in the right format");
 	if (data[len - 1] != '}')throw std::invalid_argument("Database is not in the right format");
 	int beg = 0;
 	for (size_t i = 1; i < len - 1; i++) {
 		if (data[i] == ']') {
-			pacientky.push_back(LoadCreate(data.substr(beg, i - beg + 1)));
+			m_patientList.push_back(LoadCreate(data.substr(beg, i - beg + 1)));
 		}
 		else if (data[i] == '[') beg = i;
 	}
 }
 
-uint32_t Databaza::numberEntries()
+uint32_t Database::NumberOfPatients()
 {
-	return pacientky.size();
+	return m_patientList.size();
 }
 
-void Databaza::saveToFile(wchar_t * fileName) {
+void Database::SaveToFile(wchar_t * fileName) {
 	std::locale::global(std::locale(""));
-	std::wstring data = exportSerialize();
+	std::wstring data = ExportSerialize();
 	if (PathFileExists(fileName)) {
 		int choice = MessageBox(NULL, L"Súbor už existuje. Chcete ho prepísa?", L"Naozaj?", MB_YESNO | MB_ICONWARNING);
 		if (choice == IDNO)return;
 	}
-	SsaveWstringToFile(fileName, data);
+	SaveWstringToFile(fileName, data);
 }
-void Databaza::loadFromFile(wchar_t * fileName) {
+void Database::LoadFromFile(wchar_t * fileName) {
 	std::wstring data = LoadFileIntoWstring(fileName);
-	load(data);
+	Load(data);
 }
 
-void Databaza::queryAll()
+void Database::QueryAllPatients()
 {
-	query.clear();
-	for (uint32_t i = 0; i < pacientky.size(); ++i)
+	m_lastQuery.clear();
+	for (uint32_t i = 0; i < m_patientList.size(); ++i)
 	{
-		query.push_back(i);
+		m_lastQuery.push_back(i);
 	}
 }
 
-void Databaza::queryFind(const std::vector<std::wstring>& hladane, size_t num)
+void Database::QueryFindPatients(const std::vector<std::wstring>& hladane, size_t num)
 {
-	std::vector<std::pair<UINT, int> > V(pacientky.size());
+	std::vector<std::pair<UINT, int> > V(m_patientList.size());
 	for (size_t i = 0; i < V.size(); i++) 
 	{
-		V[i] = { pacientky[i].matchIndex(hladane),i };
+		V[i] = { m_patientList[i].MatchIndex(hladane),i };
 	}
 	sort(V.begin(), V.end());
-	query.clear();
+	m_lastQuery.clear();
 	for (size_t i = 0; i < num && i < V.size(); i++)
 	{
-		query.push_back(V[i].second);
+		m_lastQuery.push_back(V[i].second);
 	}
 }
 
-uint32_t Databaza::querySize()
+uint32_t Database::QuerySize()
 {
-	return query.size();
+	return m_lastQuery.size();
 }
 
-Patient & Databaza::queryGet(uint32_t index)
+Patient & Database::QueryGet(uint32_t index)
 {
-	if (index >= query.size())
+	if (index >= m_lastQuery.size())
 	{
 		throw std::out_of_range("");
 	}
-	return pacientky[query[index]];
+	return m_patientList[m_lastQuery[index]];
 }
 
-INT_PTR AddPatientDialog::ProcessMessage(UINT message, WPARAM wParam)
-{
-	switch (message)
-	{
-	case WM_INITDIALOG:
-		SendMessage(GetDlgItem(m_window, IDC_MENO), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Meno"));
-		SendMessage(GetDlgItem(m_window, IDC_RODNECISLO), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Rodné èíslo"));
-		SendMessage(GetDlgItem(m_window, IDC_TELEFONNECISLO), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Telefónne èíslo"));
-		SendMessage(GetDlgItem(m_window, IDC_POZNAMKA), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Poznámka"));
-		SendMessage(GetDlgItem(m_window, IDC_ZMLUVNAPOISTOVNA), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Zmluvná poisovòa"));
-		SendMessage(GetDlgItem(m_window, IDC_ZMLUVNYLEKAR), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Zmluvný lekár"));
-		return (INT_PTR)TRUE;
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDOK)
-		{
-			wchar_t meno[50], rodneCislo[20], telefonneCislo[20], zmluvnaPoistovna[50], zmluvnyLekar[50], poznamka[1000];
-			GetWindowText(GetDlgItem(m_window, IDC_MENO), meno, 50);
-			GetWindowText(GetDlgItem(m_window, IDC_RODNECISLO), rodneCislo, 20);
-			GetWindowText(GetDlgItem(m_window, IDC_TELEFONNECISLO), telefonneCislo, 20);
-			GetWindowText(GetDlgItem(m_window, IDC_ZMLUVNAPOISTOVNA), zmluvnaPoistovna, 50);
-			GetWindowText(GetDlgItem(m_window, IDC_ZMLUVNYLEKAR), zmluvnyLekar, 50);
-			GetWindowText(GetDlgItem(m_window, IDC_POZNAMKA), poznamka, 1000);
 
-			Patient pac = Patient(std::wstring(meno), std::wstring(rodneCislo), std::wstring(telefonneCislo), std::wstring(zmluvnaPoistovna),
-				std::wstring(zmluvnyLekar), std::wstring(poznamka));
-
-			m_database->pridaj(pac);
-			OutputDebugString(pac.ExportSerialize().c_str());
-			OutputDebugString(L"\n");
-			EndDialog(m_window, LOWORD(wParam));
-		}
-		else if (LOWORD(wParam) == IDCANCEL) {
-			EndDialog(m_window, LOWORD(wParam));
-		}
-		break;
-	}
-	return (INT_PTR)FALSE;
-}
