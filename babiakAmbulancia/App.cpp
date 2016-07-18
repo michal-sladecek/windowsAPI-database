@@ -8,6 +8,7 @@
 #include "Search.h"
 #include "Databaza.h"
 #include "AddPatient.h"
+#include "EditPatient.h"
 
 LRESULT CALLBACK App::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -27,6 +28,13 @@ LRESULT App::ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
 {	
 	switch (message)
 	{
+	case WM_LIST_CLICK:
+	{
+		uint32_t index = static_cast<uint32_t>(wParam);
+		EditPatientDialog dialog(m_window, m_database, index);
+		dialog.Show();
+		m_listView.Show();
+	}
 	case WM_CREATE:
 		break;
 	case WM_COMMAND:

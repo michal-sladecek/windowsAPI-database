@@ -75,6 +75,9 @@
     <ClCompile Include="Patient.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
+    <ClCompile Include="EditPatient.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="babiakAmbulancia.rc">
@@ -130,6 +133,15 @@
       <Filter>Header Files\Database</Filter>
     </ClInclude>
     <ClInclude Include="Patient.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditPatient.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
   </ItemGroup>

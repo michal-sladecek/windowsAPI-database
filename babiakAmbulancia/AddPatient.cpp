@@ -6,12 +6,6 @@ INT_PTR AddPatientDialog::ProcessMessage(UINT message, WPARAM wParam)
 	switch (message)
 	{
 	case WM_INITDIALOG:
-		SendMessage(GetDlgItem(m_window, IDC_MENO), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Meno"));
-		SendMessage(GetDlgItem(m_window, IDC_RODNECISLO), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("RodnÈ ËÌslo"));
-		SendMessage(GetDlgItem(m_window, IDC_TELEFONNECISLO), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("TelefÛnne ËÌslo"));
-		SendMessage(GetDlgItem(m_window, IDC_POZNAMKA), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Pozn·mka"));
-		SendMessage(GetDlgItem(m_window, IDC_ZMLUVNAPOISTOVNA), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Zmluvn· poisùovÚa"));
-		SendMessage(GetDlgItem(m_window, IDC_ZMLUVNYLEKAR), EM_SETCUEBANNER, TRUE, (LPARAM)TEXT("Zmluvn˝ lek·r"));
 		return (INT_PTR)TRUE;
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDOK)

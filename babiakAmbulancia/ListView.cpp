@@ -23,6 +23,15 @@ void ListView::HandleWM_NOTIFY(LPARAM lParam)
 
 	switch (((LPNMHDR)lParam)->code)
 	{
+	case NM_DBLCLK:
+	{
+		LPNMITEMACTIVATE clickedItemInfo = (LPNMITEMACTIVATE)lParam;
+		if (clickedItemInfo->iItem != -1)
+		{
+			PostMessage(m_parent, WM_LIST_CLICK, static_cast<WPARAM>(clickedItemInfo->iItem), static_cast<LPARAM>(NULL));
+		}
+		break;
+	}
 	case LVN_GETDISPINFO:
 
 		plvdi = (NMLVDISPINFO*)lParam;

@@ -5,9 +5,11 @@
 
 #include <string>
 #include <vector>
+#define WM_LIST_CLICK (WM_USER + 0x0001)
 
 const UINT IDM_DATABAZA_LIST = 103;
 const UINT C_COLUMNS = 7;
+
 
 
 class ListView
