@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Helpers.h"
+#include <exception>
 
 uint32_t StringEditDistance(std::wstring str1, std::wstring str2)
 {
@@ -26,27 +27,4 @@ bool DoesDirectoryExist(LPCTSTR szPath)
 		(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-std::wstring LoadFileIntoWstring(const std::wstring & path)
-{
-	std::locale::global(std::locale(""));
-	std::wifstream subor;
-	subor.open(path, std::ios::in);
-	if (!subor.is_open()) {
-		MessageBox(NULL, L"S˙bor sa nepodarilo otvoriù.", L"Chyba?", MB_OK);
-		return L"";
-	}
-	std::wstring data;
-	data.assign((std::istreambuf_iterator<wchar_t>(subor)), std::istreambuf_iterator<wchar_t>());
-	return data;
-}
 
-void SaveWstringToFile(const std::wstring & path, const std::wstring & data)
-{
-	std::wofstream subor;
-	subor.open(path, std::ios::out | std::ios::trunc | std::ios::binary);
-	if (!subor.is_open()) {
-		MessageBox(NULL, L"S˙bor sa nepodarilo otvoriù.", L"Chyba?", MB_OK);
-		return;
-	}
-	subor << data;
-}

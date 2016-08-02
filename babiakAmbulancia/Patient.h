@@ -40,5 +40,4 @@ public:
 	uint32_t MatchIndex(const std::vector<std::wstring> & hladane) const;
 };
 
-Patient LoadCreate(std::wstring data);
-
+Patient LoadCreate(const std::string & data);

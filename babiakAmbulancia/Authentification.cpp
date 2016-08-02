@@ -4,15 +4,15 @@
 
 #include <string>
 
-const wchar_t testing_password[] = L"5244F0B5889C63853A171BB57C733A5E6CCE2A2DE119F318DDA4F61864697C02";
+const char testing_password[] = "5244F0B5889C63853A171BB57C733A5E6CCE2A2DE119F318DDA4F61864697C02";
 
 namespace
 {
 	bool authentificated = false;
 	bool Authentificate(const wchar_t * password)
 	{
-		std::wstring p = GetHashValue(password);
-		if (p == std::wstring(testing_password)) 
+		std::string p = GetHashValue(std::wstring(password));
+		if (p == std::string(testing_password)) 
 		{
 			authentificated = true;
 			return true;

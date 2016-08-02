@@ -8,6 +8,8 @@
 #include <string>
 #include <ctime>
 
+#include "../OffsetDB/StrUtils.h"
+
 
 inline Patient::Patient(bool nova) {
 	if (nova)
@@ -93,11 +95,14 @@ void Patient::Load(std::wstring data)
 	m_doctor = V[5];
 	m_note = V[6];
 }
-Patient LoadCreate(std::wstring data) {
+
+Patient LoadCreate(const std::string & data) {
 	Patient p;
-	p.Load(data);
+	std::wstring wdata = BytesToWstring(data);
+	p.Load(wdata);
 	return p;
 }
+
 void Patient::setNote(std::wstring _pm)
 {
 	m_note = _pm;

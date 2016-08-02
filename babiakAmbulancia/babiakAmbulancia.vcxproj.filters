@@ -16,17 +16,11 @@
     <Filter Include="Header Files\GUI">
       <UniqueIdentifier>{29ab03f2-467d-4a5b-8df7-d2efaaec5d89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Helping">
-      <UniqueIdentifier>{90820d4c-811d-4127-a2d1-d296ebcbf8a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Database">
       <UniqueIdentifier>{896a6515-01de-4363-a715-938498dbb43c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{eb4affbf-3ff0-4138-8559-a2f3180eae0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Helping">
-      <UniqueIdentifier>{49db3db7-d324-48d1-a0f5-737a34a79514}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Database">
       <UniqueIdentifier>{e83a41f5-b799-4fa1-a14b-aec82ce21002}</UniqueIdentifier>
@@ -62,12 +56,6 @@
     </ClCompile>
     <ClCompile Include="Search.cpp">
       <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers.cpp">
-      <Filter>Source Files\Helping</Filter>
-    </ClCompile>
-    <ClCompile Include="Hashing.cpp">
-      <Filter>Source Files\Helping</Filter>
     </ClCompile>
     <ClCompile Include="Databaza.cpp">
       <Filter>Source Files\Database</Filter>
@@ -122,12 +110,6 @@
     </ClInclude>
     <ClInclude Include="Authentification.h">
       <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers.h">
-      <Filter>Header Files\Helping</Filter>
-    </ClInclude>
-    <ClInclude Include="Hashing.h">
-      <Filter>Header Files\Helping</Filter>
     </ClInclude>
     <ClInclude Include="Databaza.h">
       <Filter>Header Files\Database</Filter>

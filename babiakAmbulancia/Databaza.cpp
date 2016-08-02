@@ -4,6 +4,7 @@
 #include "Helpers.h"
 #include "Shlwapi.h"
 
+#include "../OffsetDB/ZipBytes.h"
 
 #include <utility>
 #include <algorithm>
@@ -13,29 +14,24 @@ void Database::Add(Patient p)
 	m_patientList.push_back(p);
 }
 
-std::wstring Database::ExportSerialize()
+std::string Database::ExportSerialize()
 {
-	std::wstring beg = L"{", en = L"}", oddelovac = L"|";
-	std::wstring writeout = beg;
-	for (auto p : m_patientList) {
-		writeout += p.ExportSerialize() + oddelovac;
+	std::vector<std::string> pacientkyExported;
+	for (auto pac : m_patientList)
+	{
+		std::wstring wstr = pac.ExportSerialize();
+		std::string str((const char*)&wstr[0], sizeof(wchar_t) / sizeof(char)*wstr.size());
+		pacientkyExported.push_back(str);
 	}
-	writeout.pop_back();
-	return writeout + en;
+	return ZipByteVectors(pacientkyExported);
 }
 
-void Database::Load(std::wstring data)
+void Database::Load(const std::vector<std::string> & data)
 {
 	m_patientList.clear();
-	size_t len = data.length();
-	if (data[0] != '{')throw std::invalid_argument("Database is not in the right format");
-	if (data[len - 1] != '}')throw std::invalid_argument("Database is not in the right format");
-	int beg = 0;
-	for (size_t i = 1; i < len - 1; i++) {
-		if (data[i] == ']') {
-			m_patientList.push_back(LoadCreate(data.substr(beg, i - beg + 1)));
-		}
-		else if (data[i] == '[') beg = i;
+	for (auto p : data)
+	{
+		m_patientList.push_back(LoadCreate(p));
 	}
 }
 
@@ -44,18 +40,39 @@ uint32_t Database::NumberOfPatients()
 	return m_patientList.size();
 }
 
-void Database::SaveToFile(wchar_t * fileName) {
+void Database::SaveToFile(wchar_t * fileName)
+{
 	std::locale::global(std::locale(""));
-	std::wstring data = ExportSerialize();
-	if (PathFileExists(fileName)) {
+	std::string data = ExportSerialize();
+	if (PathFileExists(fileName)) 
+	{
 		int choice = MessageBox(NULL, L"Súbor už existuje. Chcete ho prepísa?", L"Naozaj?", MB_YESNO | MB_ICONWARNING);
 		if (choice == IDNO)return;
 	}
-	SaveWstringToFile(fileName, data);
+	try
+	{
+		SaveStringToFile(fileName, data);
+	}
+	catch (const std::exception & e)
+	{
+		MessageBox(NULL, L"Could not save to file." , L"Error?", MB_OK);
+	}
 }
-void Database::LoadFromFile(wchar_t * fileName) {
-	std::wstring data = LoadFileIntoWstring(fileName);
-	Load(data);
+
+void Database::LoadFromFile(wchar_t * fileName) 
+{
+	std::string data;
+	try
+	{
+		data = LoadFileIntoString(fileName);
+	}
+	catch (const std::exception & e)
+	{
+		MessageBox(NULL, L"Could not save to file.", L"Error?", MB_OK);
+		return;
+	}
+	std::vector<std::string> vec = UnzipToByteVectors(data);
+	Load(vec);
 }
 
 void Database::QueryAllPatients()

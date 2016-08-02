@@ -6,6 +6,18 @@
 #include "stdafx.h"
 #include "App.h"
 
+#include <cassert>
+#include "../OffsetDB/ZipBytes.h"
+void Testy()
+{
+	std::vector<std::string> V;
+	V.push_back("Ahoj");
+	V.push_back("A");
+	V.push_back("AAAAAAAAAA");
+	std::string t = ZipByteVectors(V);
+	std::vector<std::string> P = UnzipToByteVectors(t);
+	assert(V[0] == P[0] && V[1] == P[1] && V[2] == P[2]);
+}
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -14,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
 
 
-	
+	//Testy();
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 

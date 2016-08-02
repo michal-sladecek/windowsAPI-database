@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include <string>
 //Returns hash of the string
-std::wstring GetHashValue(const wchar_t * string);
+std::string GetHashValue(const std::wstring & string);
 
 std::wstring EncryptString(const std::wstring & str, const std::wstring & pass);
 std::wstring DecryptString(const std::wstring &str, const std::wstring &pass);
