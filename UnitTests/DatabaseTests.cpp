@@ -20,6 +20,7 @@ protected:
 			m_insurance, m_doctor, m_note);
 	}
 };
+
 TEST_F(PatientTest, SettersGetters)
 {
 	EXPECT_EQ(p.getBirthNumber(), m_birthNumber);
@@ -43,4 +44,27 @@ TEST_F(PatientTest, Export)
 	EXPECT_EQ(p.getInsurance(), s.getInsurance());
 	EXPECT_EQ(p.getDoctor(), s.getDoctor());
 	EXPECT_EQ(p.getPhoneNumber(), s.getPhoneNumber());
+}
+
+class DatabaseTest : public ::testing::Test 
+{
+protected:
+	Database db;
+	virtual void SetUp()
+	{
+		db.LoadFromFile(L"C:\\Users\\USER\\Documents\\Visual Studio 2015\\Projects\\babiakAmbulancia\\databaza100");
+	}
+};
+
+TEST_F(DatabaseTest, isDBLoaded)
+{
+	EXPECT_GE(db.NumberOfPatients(), 100);
+}
+
+TEST_F(DatabaseTest, Export)
+{
+	db.SaveToFile(L"tempDatabaseTested");
+	Database db2;
+	db2.LoadFromFile(L"tempDatabaseTested");
+	EXPECT_EQ(db.NumberOfPatients(), db2.NumberOfPatients());
 }

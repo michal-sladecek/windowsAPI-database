@@ -123,8 +123,5 @@
     <ClInclude Include="EditPatient.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="File.h">
-      <Filter>Header Files\Database</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
